@@ -1,6 +1,4 @@
-# COSC2753 - Machine Learning: Group Machine Learning Project
-
-For problem description and requirements, see [Project Statement](project-statement.md).
+# BloomSage Machine Learning & MLOps Backend Component
 
 ---
 
@@ -52,7 +50,7 @@ Additionally, these folders will be created during dataset fetching and model tr
 Clone this repository:
 
 ```bash
-git clone https://github.com/miketvo/rmit2023a-cosc2753-assignment2.git
+git clone https://github.com/rmit-denominator/bloomsage-ml.git
 ```
 
 
