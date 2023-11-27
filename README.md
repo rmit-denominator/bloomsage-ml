@@ -1,4 +1,4 @@
-# BloomSage Machine Learning Backend Component
+# BloomSage Machine Learning & MLOps Backend Component
 
 ---
 
