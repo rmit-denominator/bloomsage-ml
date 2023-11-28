@@ -176,7 +176,7 @@ options:
 Example use:
 
 ```text
-$ python ./classify.py -f path/to/your/your/image.png -m ./models/clf -v=1
+$ python ./classify.py -f path/to/your/your/image.png -c ./models/clf -v=1
 Image image.png is classified as "Chrysanthemum" (model: "clf")
 ```
 
