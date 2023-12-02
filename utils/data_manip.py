@@ -39,4 +39,3 @@ def normalize_pixels(image: Image) -> Image:
     image_array = np.array(image)
     normalized_image_array = image_array / 255.0  # Normalize pixel values to the range [0, 1]
     return Image.fromarray((normalized_image_array * 255).astype(np.uint8))
-
