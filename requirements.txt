@@ -1,3 +1,4 @@
+kaggle
 jupyter
 tqdm
 ipython
