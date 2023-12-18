@@ -1,9 +1,8 @@
 import os
-import imagehash
 import pandas as pd
 from PIL import Image
 
-dir_raw_dataset = os.path.join('../data/raw/')
+dir_raw_dataset = os.path.join('../../data/raw/')
 
 
 def load(from_dir: str) -> pd.DataFrame:

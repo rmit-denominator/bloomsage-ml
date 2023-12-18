@@ -16,8 +16,12 @@
 │   └── Step3.Classifier-BaselineModel.ipynb
 ├── scraping/
 │   └── scrape.py
-├── classify.py
-├── recommend.py
+├── src/
+│   ├── data/
+│   ├── model/
+│   │   ├── classify.py
+│   │   └── recommend.py
+│   └── util/
 ├── requirements.txt
 ├── .gitignore
 ├── project-statement.md
@@ -28,12 +32,13 @@
 1. `font/`: This folder contains the fonts used in our client script's GUI mode.
 2. `notebooks/`: This folder contains all Jupyter Notebooks for this project and their exported plots in `notebooks/images/`.
 3. `scrape/`: This folder contains a scraping script to get more images from the internet for our dataset. All downloaded images will also be in this folder.
-4. `classify.py`: Client script for classifying flower images using trained models.
-5. `recommend.py`: Client script for recommending flower images using trained models.
-6. `requirements.txt`: Text file for `pip` installation of necessary packages for development environment.
-7. `.gitignore`: This file contains ignore VCS ignore rules.
-8. `README.md`: A text file containing useful reference information about this project, including how to run the algorithm.
-9. `LICENSE`: MIT
+4. `src/`: This folder contains the source code for this project.
+5. `src/model/classify.py`: Client script for classifying flower images using trained models.
+6. `src/model/recommend.py`: Client script for recommending flower images using trained models.
+7. `requirements.txt`: Text file for `pip` installation of necessary packages for development environment.
+8. `.gitignore`: This file contains ignore VCS ignore rules.
+9. `README.md`: A text file containing useful reference information about this project, including how to run the algorithm.
+10. `LICENSE`: MIT
 
 
 Additionally, these folders will be created during dataset fetching and model training:
@@ -130,7 +135,7 @@ Skip this step if you just want to use on of the pre-trained model packages avai
 
 ### Using Trained Models
 
-If you are using one of our pre-trained model packages, download your desired version from [Releases](https://github.com/miketvo/rmit2023a-cosc2753-assignment2/releases) (.zip archives) and extract its contents into this project's root directory using your preferred zip program. Make sure to check and clean `models/` folder (if exists) to avoid naming conflict with existing trained model before the extraction.
+If you are using one of our pre-trained model packages, download the [Latest Release](https://github.com/rmit-denominator/bloomsage-ml/releases/latest/download/models.zip) (.zip archive) and extract its contents into this project's root directory using your preferred zip program. Make sure to check and clean `models/` folder (if exists) to avoid naming conflict with existing trained model before the extraction.
 
 These trained models can then be loaded into your code with:
 
@@ -140,7 +145,7 @@ import tensorflow as tf
 model = tf.keras.models.load_model('path/to/model')
 ```
 
-Additionally, two Python files, `classify.py` and `recommend.py`, are provided as simple front-ends to our trained model. You can either run them as standalone script in the terminal or import them as Python module in your own Python script or Jupyter Notebook to programmatically classify multiple images and recommend similar images for each of them.
+Additionally, two Python files, `src/model/classify.py` and `src/model/recommend.py`, are provided as simple front-ends to our trained model. You can either run them as standalone script in the terminal or import them as Python module in your own Python script or Jupyter Notebook to programmatically classify multiple images and recommend similar images for each of them.
 
 To use them as standalone script, see instruction below:
 
@@ -176,14 +181,14 @@ options:
 Example use:
 
 ```text
-$ python ./classify.py -f path/to/your/your/image.png -c ./models/clf -v=1
+$ python ./src/model/classify.py -f path/to/your/your/image.png -c ./models/clf -v=1
 Image image.png is classified as "Chrysanthemum" (model: "clf")
 ```
 
 It also has a rudimentary GUI mode using Matplotlib, which will display the image with a caption of what flower type it is classified as:
 
 ```bash
-python ./classify.py --gui -f path/to/your/your/image.png -m ./models/clf
+python ./src/model/classify.py --gui -f path/to/your/your/image.png -m ./models/clf
 ```
 
 **Note:** Alternatively, you can import its `classify.classify()` function into your own script or notebook to programmatically classify multiple images (see its docstring for instruction on how to use).
@@ -191,7 +196,7 @@ python ./classify.py --gui -f path/to/your/your/image.png -m ./models/clf
 
 #### Recommending Flower Images
 
-Use the `recommend.py` client script. Its syntax is as follows:
+Use the `src/model/recommend.py` client script. Its syntax is as follows:
 
 ```text
 usage: recommend.py [-h] -f FILE [-d DATABASE] [-c CLASSIFIER] [-e FEATURE_EXTRACTOR] [-k CLUSTERING_MODEL] [-n NUM]
@@ -209,7 +214,7 @@ options:
 Example:
 
 ```bash
-python ./recommend.py -f path/to/your/your/image.png
+python ./src/model/recommend.py -f path/to/your/your/image.png
 ```
 
 When executed, the code above will display 10 similar flower images (GUI mode) of the same type, taken from the recommender database in `data/recommender-database/`, based on your reference image, using the default classifier, feature extractor, and clustering model

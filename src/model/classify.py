@@ -6,9 +6,9 @@ from PIL import Image
 import tensorflow as tf
 from keras.engine.training import Model
 
-from utils.glob import TARGET_IMG_SIZE
-from utils.glob import CLASS_LABELS
-import utils.data_manip as manip
+from src.model import INPUT_IMG_SIZE
+from src import CLASS_LABELS
+import src.util.image as imt
 
 
 def classify(image_path: str, classifier_path: str, verbose: bool = False, return_original: bool = True) -> tuple:
@@ -23,9 +23,9 @@ def classify(image_path: str, classifier_path: str, verbose: bool = False, retur
     """
 
     im_original = Image.open(image_path)
-    im_processed = manip.remove_transparency(im_original)
-    im_processed = manip.resize_crop(im_processed, TARGET_IMG_SIZE, TARGET_IMG_SIZE)
-    im_processed = manip.normalize_pixels(im_processed)
+    im_processed = imt.remove_transparency(im_original)
+    im_processed = imt.resize_crop(im_processed, INPUT_IMG_SIZE, INPUT_IMG_SIZE)
+    im_processed = imt.normalize_pixels(im_processed)
     im_processed = tf.expand_dims(im_processed, axis=0)
 
     model: Model = tf.keras.models.load_model(classifier_path)
