@@ -14,8 +14,6 @@
 │   ├── Step1.EDA.ipynb
 │   ├── Step2.DataPrep.ipynb
 │   └── Step3.Classifier-BaselineModel.ipynb
-├── scraping/
-│   └── scrape.py
 ├── src/
 │   ├── data/
 │   ├── model/

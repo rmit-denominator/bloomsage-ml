@@ -6,7 +6,7 @@ from PIL import Image
 import tensorflow as tf
 from keras.engine.training import Model
 
-from src.model import INPUT_IMG_SIZE
+from src.model import INPUT_IMG_DIM
 from src import CLASS_LABELS
 import src.util.image as imt
 
@@ -24,7 +24,7 @@ def classify(image_path: str, classifier_path: str, verbose: bool = False, retur
 
     im_original = Image.open(image_path)
     im_processed = imt.remove_transparency(im_original)
-    im_processed = imt.resize_crop(im_processed, INPUT_IMG_SIZE, INPUT_IMG_SIZE)
+    im_processed = imt.resize_crop(im_processed, INPUT_IMG_DIM, INPUT_IMG_DIM)
     im_processed = imt.normalize_pixels(im_processed)
     im_processed = tf.expand_dims(im_processed, axis=0)
 

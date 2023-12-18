@@ -1,1 +1,1 @@
-INPUT_IMG_SIZE = 256  # This image size is the most computationally efficient while minimizing information loss
+INPUT_IMG_DIM = 256  # This image size is the most computationally efficient while minimizing information loss
