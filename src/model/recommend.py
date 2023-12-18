@@ -14,13 +14,14 @@ from classify import classify
 def recommend(
         ref_path: str, num_recommendations: int,
         data_path: str, clf_path: str, fe_path: str, clu_path: str,
-) -> list:
+) -> dict:
     """
     Recommends similar images based on a reference image.
 
     :param ref_path: Path to the reference image.
     :param num_recommendations: Number of recommended images to return.
-    :param data_path: Path to the .csv data file containing recommender database image feature vectors. This file must be generated using the same feature extractor specified in fe_path.
+    :param data_path: Path to the .csv data file containing recommender database image feature vectors. This file must
+    be generated using the same feature extractor specified in fe_path.
     :param clf_path: Path to the classifier model file.
     :param fe_path: Path to the feature extraction model file.
     :param clu_path: Path to the clustering model file.
@@ -34,8 +35,8 @@ def recommend(
     clu = joblib.load(clu_path)
     clu.set_params(n_clusters=int(np.sqrt(len(df_rec) / num_recommendations)))
 
-    ref_processed, ref_class = classify(ref_path, classifier_path=clf_path, return_original=False, verbose=False)
-    recommendations = df_rec[df_rec['Class'] == ref_class]
+    ref_processed, ref_pred_label = classify(ref_path, classifier_path=clf_path, return_original=False, verbose=False)
+    recommendations = df_rec[df_rec['Class'] == ref_pred_label]
 
     # Extract reference image feature vector
     ref_processed = np.squeeze(ref_processed)
@@ -63,7 +64,14 @@ def recommend(
     top_ref_cluster_indices = sorted_ref_cluster_indices[:num_recommendations]
     recommendations = recommendations.iloc[top_ref_cluster_indices]
 
-    return recommendations['ImgPath'].to_list()
+    # Retrieve paths and cosine similarities
+    recommended_paths = recommendations['ImgPath'].tolist()
+    cosine_sim_scores = cosine_similarities[0, top_ref_cluster_indices].tolist()
+
+    # Create a dictionary with paths and their cosine similarity scores
+    result_dict = { path: score for path, score in zip(recommended_paths, cosine_sim_scores) }
+
+    return result_dict
 
 
 if __name__ == '__main__':
