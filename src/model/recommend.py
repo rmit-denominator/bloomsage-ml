@@ -25,7 +25,7 @@ def recommend(
     :param clf_path: Path to the classifier model file.
     :param fe_path: Path to the feature extraction model file.
     :param clu_path: Path to the clustering model file.
-    :return: List of paths to the recommended images.
+    :return: Dictionary containing paths to recommended images as keys and their cosine similarity scores as values.
     """
     if num_recommendations < 1:
         raise ValueError('Number of recommendations cannot be smaller than 1.')
