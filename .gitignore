@@ -839,10 +839,15 @@ FodyWeavers.xsd
 
 
 # Dataset
-/data/
-/scraping/*/
-/scraping/*.zip
+/data/raw/*
+!/data/raw/.gitkeep
+/data/processed/*
+!/data/processed/.gitkeep
+
+# Scraping script and data
+/scraping/**
+!/scraping/scrape.py
 
 # Machine Learning
-/log/
-/models/
+/models/*
+!/models/.gitkeep
