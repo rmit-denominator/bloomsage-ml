@@ -5,6 +5,7 @@ from PIL import Image
 
 dir_raw_dataset = os.path.join('../data/raw/')
 
+
 def load(from_dir: str) -> pd.DataFrame:
     """
     Load a directory of flower images into a Pandas ``DataFrame``. Assumes that directory contains exactly 8 folders for
