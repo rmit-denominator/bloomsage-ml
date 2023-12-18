@@ -16,6 +16,7 @@
 │   └── Step3.Classifier-BaselineModel.ipynb
 ├── src/
 │   ├── data/
+│   ├── feature/
 │   ├── model/
 │   │   ├── classify.py
 │   │   └── recommend.py
