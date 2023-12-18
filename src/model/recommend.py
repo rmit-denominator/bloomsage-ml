@@ -63,7 +63,7 @@ def recommend(
     top_ref_cluster_indices = sorted_ref_cluster_indices[:num_recommendations]
     recommendations = recommendations.iloc[top_ref_cluster_indices]
 
-    return list(recommendations['ImgPath'].values)
+    return recommendations['ImgPath'].to_list()
 
 
 if __name__ == '__main__':
