@@ -161,7 +161,7 @@ def build_fe():
             pbar.update()
             recommendations['ImgPath'].append(row['ImgPath'])
             recommendations['Class'].append(row['Class'])
-            with Image.open(f'{dir_recommender_database}{recommendations["ImgPath"][-1]}') as ref:
+            with Image.open(os.path.join(dir_recommender_database, recommendations["ImgPath"][-1])) as ref:
                 ref_processed = resize_crop(ref, INPUT_IMG_DIM, INPUT_IMG_DIM)
                 ref_processed = normalize_pixels(ref_processed)
                 ref_processed = tf.expand_dims(ref_processed, axis=0)

@@ -1,7 +1,7 @@
 import os
 
 import pandas as pd
-from transformers import AutoModel
+from transformers import TFAutoModel
 from datasets import Dataset
 
 from src import PATH
@@ -16,7 +16,7 @@ model_clustering_name = MODELS['CLUSTERING']
 
 
 def push_model(model_file: str, remote: str):
-    model = AutoModel.from_pretrained(model_file)
+    model = TFAutoModel.from_pretrained(model_file)
     model.push_to_hub(remote)
 
 
