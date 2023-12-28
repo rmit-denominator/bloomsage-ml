@@ -1,5 +1,50 @@
+import math
+import random
 import numpy as np
 from PIL import Image
+
+
+def augment(image: Image, seed: int = None) -> Image:
+    if seed is not None:
+        random.seed(seed)
+
+    # Rotation
+    rotation_angle = random.randint(-180, 180)
+    rotated_image = image.rotate(rotation_angle, expand=True)
+
+    # Cropping non-image area after rotation. For the math,
+    # see: https://stackoverflow.com/questions/21346670/cropping-rotated-image-with-same-aspect-ratio
+    aspect_ratio = image.size[0] / image.size[1]
+    rotated_aspect_ratio = rotated_image.size[0] / rotated_image.size[1]
+    angle = math.fabs(rotation_angle) * math.pi / 180
+
+    if aspect_ratio < 1:
+        total_height = float(image.size[0]) / rotated_aspect_ratio
+    else:
+        total_height = float(image.size[1])
+
+    h = total_height / (aspect_ratio * math.fabs(math.sin(angle)) + math.fabs(math.cos(angle)))
+    w = h * aspect_ratio
+
+    left = (rotated_image.size[0] - w) / 2
+    upper = (rotated_image.size[1] - h) / 2
+    right = left + w
+    lower = upper + h
+    cropped_image = rotated_image.crop((left, upper, right, lower))
+
+    # Horizontal flipping
+    flip_prob = random.random()
+    if flip_prob < 0.5:
+        flipped_image = cropped_image.transpose(Image.FLIP_LEFT_RIGHT)
+    else:
+        flipped_image = cropped_image
+
+    # Vertical flipping
+    flip_prob = random.random()
+    if flip_prob < 0.5:
+        flipped_image = flipped_image.transpose(Image.FLIP_TOP_BOTTOM)
+
+    return flipped_image
 
 
 def remove_transparency(image: Image) -> Image:
