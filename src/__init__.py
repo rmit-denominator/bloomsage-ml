@@ -30,3 +30,8 @@ CLASS_LABELS = [
     'Rosy',
     'Tana'
 ]
+
+REMOTE = {
+    'MODELS': 'rmit-denominator/bloomsage',
+    'RECOMMENDER_DATA': 'rmit-denominator/recommender-data'
+}

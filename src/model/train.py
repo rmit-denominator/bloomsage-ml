@@ -1,13 +1,14 @@
 import os
 
-import joblib
 from tqdm.auto import tqdm
 import tensorflow as tf
 from sklearn.cluster import KMeans
 from keras.optimizers import RMSprop
 from keras.preprocessing.image import ImageDataGenerator
 from sklearn.model_selection import train_test_split
+import pandas as pd
 from PIL import Image
+import joblib
 
 from src.data import dataset
 from src import PATH, MODELS
@@ -20,6 +21,7 @@ dir_raw_dataset = PATH['DATASET']['RAW']
 dir_train_dataset = PATH['DATASET']['PROCESSED']['TRAIN']
 dir_test_dataset = PATH['DATASET']['PROCESSED']['TEST']
 dir_recommender_database = PATH['DATASET']['PROCESSED']['RECOMMENDER']
+path_recommender_database_metadata = PATH['DATASET']['PROCESSED']['RECOMMENDER_META']
 dir_models = PATH['MODELS']
 
 model_clf_name = MODELS['CLASSIFIER']
@@ -167,6 +169,9 @@ def build_fe():
                 ref_feature_vector = model.predict(ref_processed, verbose=0)
                 for j, feature in enumerate(ref_feature_vector.reshape(-1)):
                     recommendations[f'x{j}'].append(feature)
+
+    df_feature_vectors = pd.DataFrame(recommendations)
+    df_feature_vectors.to_csv(path_recommender_database_metadata, index=False)
 
 
 def build_clu():
